@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
+import { ledger } from '../core/ledger.ts';
 import styles from './Header.module.css';
 
 const THEME_KEY = 'gw.theme.v1';
@@ -10,9 +11,21 @@ function currentTheme(): Theme {
     : 'light';
 }
 
+// The chip re-reads the stored records on every ledger change — the summary
+// is computed, never a cached tally (002 §7).
+function useLedgerSummary() {
+  return useSyncExternalStore(
+    (onChange) => ledger.subscribe(onChange),
+    () => JSON.stringify(ledger.summary()),
+  );
+}
+
 export function Header() {
   const [theme, setTheme] = useState<Theme>(currentTheme);
   const [copied, setCopied] = useState(false);
+  const summary = JSON.parse(useLedgerSummary()) as ReturnType<
+    typeof ledger.summary
+  >;
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -43,6 +56,15 @@ export function Header() {
         Groundwork
       </a>
       <div className={styles.actions}>
+        {summary.total > 0 && (
+          <span
+            className={styles.chip}
+            aria-label={`Calibration: ${summary.total} predictions, ${summary.pct}% within range`}
+          >
+            {summary.total} prediction{summary.total === 1 ? '' : 's'} ·{' '}
+            {summary.pct}% within range
+          </span>
+        )}
         <button type="button" onClick={copyLink}>
           {copied ? 'Copied!' : 'Copy link'}
         </button>

@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | **Type** | Substrate |
-| **Status** | Ready to build |
+| **Status** | Built |
 | **Depends on** | 000 (S2.4 ledger schema & policy) |
 | **Charter rules in play** | P3, P6, §8 |
 

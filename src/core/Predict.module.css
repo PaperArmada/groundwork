@@ -1,0 +1,114 @@
+.predict {
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+  background: var(--color-surface);
+}
+
+.prompt {
+  margin: 0 0 var(--space-3);
+  font-weight: 600;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.form input[type='number'] {
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  max-width: 10rem;
+}
+
+.rangeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.choice input {
+  accent-color: var(--color-accent);
+}
+
+.orderList {
+  margin: 0;
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.orderButtons {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.orderButtons button,
+.commit,
+.again {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.commit {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-weight: 600;
+}
+
+.commit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.verdict {
+  margin: 0 0 var(--space-3);
+}
+
+.within {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.outside {
+  color: var(--color-warn);
+  font-weight: 600;
+}
+
+.again {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}

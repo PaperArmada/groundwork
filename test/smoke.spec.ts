@@ -53,11 +53,19 @@ for (const m of modules) {
       ).toBeVisible();
 
       // Click every button (twice for toggles), drive every slider and
-      // select, and send the transport keys to anything focusable.
-      const buttons = page.locator('main button');
-      for (let i = 0; i < (await buttons.count()); i++) {
-        await buttons.nth(i).click();
-        await buttons.nth(i).click();
+      // select, and send the transport keys to anything focusable. Buttons
+      // may be legitimately disabled (e.g. Predict commit before a guess)
+      // or detach after a click (e.g. commit → reveal swap) — skip those,
+      // but let any thrown page error fail the test via the error check.
+      const buttons = await page.locator('main button').all();
+      for (const b of buttons) {
+        for (let clicks = 0; clicks < 2; clicks++) {
+          const clickable =
+            (await b.isVisible().catch(() => false)) &&
+            (await b.isEnabled().catch(() => false));
+          if (!clickable) break;
+          await b.click();
+        }
       }
       const sliders = page.locator('main input[type="range"]');
       for (let i = 0; i < (await sliders.count()); i++) {
@@ -111,6 +119,72 @@ test.describe('fixture-transport specifics', () => {
     await page.goto('/#/m/fixture-transport');
     await expect(page.getByRole('button', { name: 'Step back' })).toBeVisible();
     await expect(page.getByRole('slider', { name: 'Seek' })).toBeVisible();
+  });
+});
+
+test.describe('fixture-predict specifics', () => {
+  test('reveal content is absent from the DOM until commit', async ({
+    page,
+  }) => {
+    await page.goto('/#/m/fixture-predict');
+    await expect(
+      page.getByText('Revealed content for the choice prediction'),
+    ).toHaveCount(0);
+    await page.getByRole('radio', { name: 'green' }).check();
+    await page
+      .locator('section', { hasText: 'Which of these is a color?' })
+      .getByRole('button', { name: 'Lock in my guess' })
+      .click();
+    await expect(
+      page.getByText('Revealed content for the choice prediction'),
+    ).toBeVisible();
+  });
+
+  test('a commit persists across reload, in table and chip', async ({
+    page,
+  }) => {
+    await page.goto('/#/m/fixture-predict');
+    await page.getByRole('radio', { name: 'green' }).check();
+    await page
+      .locator('section', { hasText: 'Which of these is a color?' })
+      .getByRole('button', { name: 'Lock in my guess' })
+      .click();
+    await expect(page.getByText('1 prediction ·')).toBeVisible();
+    await page.reload();
+    await expect(page.getByText('1 prediction ·')).toBeVisible();
+    await expect(page.locator('table tbody tr')).toHaveCount(1);
+  });
+
+  test('re-answering increments attempt but never the summary', async ({
+    page,
+  }) => {
+    await page.goto('/#/m/fixture-predict');
+    const section = page.locator('section', {
+      hasText: 'Which of these is a color?',
+    });
+    await page.getByRole('radio', { name: 'green' }).check();
+    await section.getByRole('button', { name: 'Lock in my guess' }).click();
+    await expect(page.getByText('1 prediction · 100% within range')).toBeVisible();
+    await section.getByRole('button', { name: /Answer again/ }).click();
+    await page.getByRole('radio', { name: 'seven' }).check(); // wrong on purpose
+    await section.getByRole('button', { name: 'Lock in my guess' }).click();
+    const rows = page.locator('table tbody tr');
+    await expect(rows).toHaveCount(2);
+    await expect(rows.nth(1)).toContainText('2'); // attempt column
+    // summary still counts only the first (correct) commitment
+    await expect(page.getByText('1 prediction · 100% within range')).toBeVisible();
+  });
+
+  test('clear empties the table and hides the chip', async ({ page }) => {
+    await page.goto('/#/m/fixture-predict');
+    await page.getByRole('radio', { name: 'green' }).check();
+    await page
+      .locator('section', { hasText: 'Which of these is a color?' })
+      .getByRole('button', { name: 'Lock in my guess' })
+      .click();
+    await page.getByRole('button', { name: /Clear ledger/ }).click();
+    await expect(page.getByText('Nothing committed yet.')).toBeVisible();
+    await expect(page.getByText('prediction ·')).toHaveCount(0);
   });
 });
 

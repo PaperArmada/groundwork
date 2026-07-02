@@ -13,6 +13,13 @@ export const modules: ModuleDef[] = [
     hidden: true,
   },
   {
+    id: 'fixture-predict',
+    title: 'Fixture: predict',
+    blurb: 'All four Predict kinds writing to the calibration ledger.',
+    load: () => import('./fixture-predict/index.tsx'),
+    hidden: true,
+  },
+  {
     id: 'fixture-shell',
     title: 'Fixture: shell',
     blurb: 'Theme, deep-link round trip, and reduced-motion checks.',

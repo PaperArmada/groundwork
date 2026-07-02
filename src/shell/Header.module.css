@@ -17,7 +17,19 @@
 
 .actions {
   display: flex;
+  align-items: center;
   gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-surface-raised);
+  white-space: nowrap;
 }
 
 .actions button {
