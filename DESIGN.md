@@ -224,9 +224,11 @@ Vanity metrics (stars, traffic) are noted and ignored for design decisions.
   tallies first. Leaning full (it's cheap: local storage + one component), but
   the substrate spec makes the call.
 - **Module 3 fidelity.** How database-like must the "database" home be for the
-  survival matrix to be honest (P4) without building a toy DB? Spec 003
+  survival matrix to be honest (P4) without building a toy DB? Spec 103
   resolves this.
 
 ---
 
-*Amendment history: none yet. Amend deliberately, in dedicated commits.*
+*Amendment history: 2026-07-02 — §11 module-3-fidelity item corrected to
+cite spec 103 (module specs are numbered 101–106; 003 is the histogram
+substrate spec). Amend deliberately, in dedicated commits.*
