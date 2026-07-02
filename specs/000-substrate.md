@@ -30,8 +30,9 @@ infrastructure, smoke harness. Green checks, zero modules.
 | 003 | Histogram primitive + agent-questions card | 101 onward (P5) |
 
 Module specs are numbered 101–106, matching charter §6. Nothing in 001–003
-gets built without this spec's contracts; nothing in 101+ gets built before
-001–003 are Accepted.
+gets built without this spec's contracts; no module spec gets built before
+the specs in its Depends-on row are Accepted (002–003 for 101; 001
+additionally for 102, 104, 105 — matching the README's build order).
 
 ## S2. Contracts
 
@@ -234,3 +235,8 @@ cross-module ledger in v1** (S2.4 as written, closes DESIGN.md §11);
 
 *Amended 2026-07-02 (owner-approved): S2.8 styling contract added —
 previously an unspecified convention living only in CLAUDE.md.*
+
+*Amended 2026-07-02: S1 build gate corrected — modules gate on their own
+Depends-on specs, not a blanket "001–003 Accepted." The old wording
+contradicted the README build order and spec 101's Depends-on row (101
+does not consume 001).*
