@@ -44,10 +44,15 @@ export function Header() {
   }, []);
 
   const copyLink = useCallback(() => {
-    void navigator.clipboard.writeText(window.location.href).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    });
+    void navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      })
+      .catch(() => {
+        // clipboard denied — the button simply doesn't flip to "Copied!"
+      });
   }, []);
 
   return (

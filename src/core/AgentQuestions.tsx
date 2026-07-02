@@ -13,10 +13,15 @@ export function AgentQuestions({ questions }: AgentQuestionsProps) {
   const [copied, setCopied] = useState<number | 'all' | null>(null);
 
   function copy(text: string, which: number | 'all') {
-    void navigator.clipboard.writeText(text).then(() => {
-      setCopied(which);
-      setTimeout(() => setCopied(null), 1500);
-    });
+    void navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setCopied(which);
+        setTimeout(() => setCopied(null), 1500);
+      })
+      .catch(() => {
+        // clipboard denied — the button simply doesn't flip to "Copied!"
+      });
   }
 
   return (
