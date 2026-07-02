@@ -1,0 +1,9 @@
+.notice {
+  margin-top: var(--space-5);
+  color: var(--color-text-muted);
+}
+
+.title {
+  font-size: var(--text-xl);
+  margin: var(--space-4) 0;
+}
