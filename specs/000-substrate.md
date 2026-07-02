@@ -201,8 +201,10 @@ proof of mechanism.
 ## 9. Acceptance criteria
 
 1. Fresh clone → `npm install && npm run dev` → working site; `npm test`
-   green; push to `main` → CI builds, tests, deploys to Pages, and the
-   deployed URL serves the site.
+   green; push to `main` → CI builds and tests green.
+   *Deferred (owner, 2026-07-02):* the Pages deploy — CI deploys and the
+   deployed URL serves the site — is checked when Pages is enabled, before
+   the first module spec is Accepted.
 2. Catalog renders from the manifest; fixtures are absent from catalog and
    search but reachable by URL.
 3. fixture-transport: plays, pauses, steps forward *and back*, seeks, obeys

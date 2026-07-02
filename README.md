@@ -20,9 +20,9 @@ the repo root and start with:
 **Build order:** `000 → 002 → 003 → 101` gets the first module live.
 `001` (SimLoop) is not needed by 101 — build it any time before module 102.
 
-**Before the 000 session:** enable GitHub Pages for this repo (Settings →
-Pages → Source: GitHub Actions) — spec 000's acceptance criterion 1
-includes a live deploy and can't pass without it.
+**Pages, when ready:** the live-deploy check in spec 000's criterion 1 is
+deferred until GitHub Pages is enabled (Settings → Pages → Source: GitHub
+Actions) — do it before accepting the first module spec.
 
 ## Acceptance
 
