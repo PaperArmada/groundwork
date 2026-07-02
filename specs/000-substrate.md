@@ -233,6 +233,15 @@ cross-module ledger in v1** (S2.4 as written, closes DESIGN.md §11);
 **first-commitment-counts** calibration policy (S2.4);
 **MDX from day one** (S2.1).
 
+Four build-plan resolutions (owner-approved 2026-07-02, 000 session):
+**`seek(pos)` takes normalized progress [0, 1]** in the S2.3 contract —
+implementation-agnostic; `FramePlayer` maps it to the nearest frame.
+**`play()` from `done` restarts** (reset, then play). **Transport keyboard
+shortcuts are scoped** to focus within the transport bar / module area, not
+global capture (typing in search must never toggle playback). **Theme
+initializes from `prefers-color-scheme`**, persisting to localStorage only
+once the learner toggles it.
+
 *Amended 2026-07-02 (owner-approved): S2.8 styling contract added —
 previously an unspecified convention living only in CLAUDE.md.*
 
