@@ -188,10 +188,10 @@ gets drafted early even if it ships last.
   by using the running artifact for a few minutes. "The N+1 demo visibly
   dwarfs a million in-memory ops at default settings" is a criterion. "Code is
   clean" is a mood.
-- **One session, one deliverable.** Each build session produces exactly one
+- **One context, one deliverable.** Each build cycle produces exactly one
   spec'd artifact, starting from a plan the human reviews before code is
-  written. Fresh context each session; the repo's documents, not chat history,
-  carry continuity.
+  written. Fresh context each cycle — a long-lived terminal cleared at spec
+  boundaries counts; the repo's documents, not chat history, carry continuity.
 - **Ambiguity is a stop condition.** If a spec is ambiguous or seems wrong,
   the agent stops and says so rather than resolving it silently. Every
   ambiguity surfaced is a defect in our spec-writing we want to know about.
@@ -231,4 +231,6 @@ Vanity metrics (stars, traffic) are noted and ignored for design decisions.
 
 *Amendment history: 2026-07-02 — §11 module-3-fidelity item corrected to
 cite spec 103 (module specs are numbered 101–106; 003 is the histogram
-substrate spec). Amend deliberately, in dedicated commits.*
+substrate spec). 2026-07-02 — §9 reworded from "session" to
+"context/cycle": a long-lived terminal with `/clear` at spec boundaries
+satisfies the fresh-context rule. Amend deliberately, in dedicated commits.*

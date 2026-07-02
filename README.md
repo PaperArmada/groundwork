@@ -8,14 +8,19 @@ coding agents effectively.
 agent's operating manual is [CLAUDE.md](CLAUDE.md); build contracts live in
 [specs/](specs/).
 
-## Running a build session
+## Running a build cycle
 
-One session, one spec (CLAUDE.md → Session protocol). Open Claude Code at
-the repo root and start with:
+One context, one spec (CLAUDE.md → Build protocol). Keep a single terminal
+open as long as you like; run `/clear` between specs so each build starts
+from the repo's ground truth. Start every cycle with the project command:
 
-> Read DESIGN.md, CLAUDE.md, and specs/NNN-*.md. Confirm the spec's Status
-> is "Ready to build," then propose your plan per the Session protocol.
-> No code until I approve the plan.
+```
+/build 000
+```
+
+(defined in `.claude/commands/build.md` — it reads the constitution,
+verifies the spec is Ready, and proposes a plan for your approval before
+writing code).
 
 **Build order:** `000 → 002 → 003 → 101` gets the first module live.
 `001` (SimLoop) is not needed by 101 — build it any time before module 102.

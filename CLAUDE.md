@@ -4,7 +4,7 @@ Interactive lessons teaching non-engineers the physics of software so they can
 direct AI coding agents well. **DESIGN.md is the constitution; specs are
 contracts; this file is your operating manual.** If these three ever disagree:
 DESIGN.md > the spec > this file — and disagreement itself is a stop condition
-(see Session protocol).
+(see Build protocol).
 
 ## Stack & commands
 
@@ -73,15 +73,20 @@ substrate amendment, not a refactor.
     person, no term before the spec's §5 says it's been earned. When a
     tooltip needs jargon to be "precise," the tooltip is wrong.
 
-## Session protocol
+## Build protocol
 
-One session, one spec, one deliverable.
+One **context**, one spec, one deliverable. A long-lived terminal is fine —
+run `/clear` at each spec boundary so every build starts from the repo's
+ground truth rather than the previous build's residue. "Session" in this
+repo means one context epoch, not one terminal window. Each cycle starts
+with `/build NNN` (project command in `.claude/commands/`).
 
 1. Read DESIGN.md (skim on repeat visits), then the named spec in full.
    Confirm Status: Ready to build.
-2. **Write a plan and wait for approval.** Files touched, components created,
-   how the core stays pure, how each §9 criterion will be met, anything that
-   smells ambiguous. Plans are cheap; surprises are not.
+2. **Write a plan and wait for approval** (unless the invocation explicitly
+   pre-approves proceeding). Files touched, components created, how the core
+   stays pure, how each §9 criterion will be met, anything that smells
+   ambiguous. Plans are cheap; surprises are not.
 3. Build. Small commits, imperative messages, spec number in each
    (`101: add cost-model core`).
 4. Run the full test suite yourself before reporting.
@@ -90,6 +95,11 @@ One session, one spec, one deliverable.
 6. Log deviations: anything done differently from the spec or this file goes
    in the report explicitly — deviations are experiment data (DESIGN.md §9),
    and unlogged ones poison the experiment.
+
+Refinement belongs *inside* the cycle: acceptance feedback, fixes, and
+re-review iterate freely in the same context until the spec is Accepted.
+The boundary is the deliverable, not the conversation's length. Changes to
+an already-Accepted artifact are spec amendments — a new cycle.
 
 ## Conventions
 
