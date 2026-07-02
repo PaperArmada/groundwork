@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | **Type** | Substrate |
-| **Status** | Ready to build |
+| **Status** | Built |
 | **Depends on** | 000 (S2.6, S2.7, S2.8) |
 | **Charter rules in play** | P4, P5, §8 |
 

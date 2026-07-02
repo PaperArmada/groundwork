@@ -188,6 +188,68 @@ test.describe('fixture-predict specifics', () => {
   });
 });
 
+test.describe('fixture-viz specifics', () => {
+  test('+100 re-bins live and the count readout matches samples fed', async ({
+    page,
+  }) => {
+    await page.goto('/#/m/fixture-viz');
+    await expect(page.getByText('samples fed: 0')).toBeVisible();
+    await page.getByRole('button', { name: '+100 samples' }).click();
+    await expect(page.getByText('samples fed: 100')).toBeVisible();
+    await expect(page.locator('svg rect').first()).toBeVisible();
+    await page.getByRole('button', { name: '+1 sample' }).click();
+    await expect(page.getByText('samples fed: 101')).toBeVisible();
+  });
+
+  test('scale toggle re-lays out the same samples (count invariant)', async ({
+    page,
+  }) => {
+    await page.goto('/#/m/fixture-viz');
+    await page.getByRole('button', { name: '+100 samples' }).click();
+    await page.getByRole('checkbox', { name: 'log scale' }).check();
+    await expect(page.getByText('samples fed: 100')).toBeVisible();
+    await expect(page.locator('svg rect').first()).toBeVisible();
+    await page.waitForTimeout(300);
+    expect(page.url()).toContain('scale=log');
+  });
+
+  test('known set places p50 at the documented 50.5', async ({ page }) => {
+    await page.goto('/#/m/fixture-viz');
+    await page.getByRole('button', { name: 'Load known set' }).click();
+    await expect(page.getByText('samples fed: 100')).toBeVisible();
+    await expect(page.locator('svg text', { hasText: 'p50' })).toContainText(
+      '50.5',
+    );
+  });
+
+  test('copy-per-question and copy-all yield the exact text', async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({
+      permissions: ['clipboard-read', 'clipboard-write'],
+    });
+    const page = await context.newPage();
+    await page.goto('http://localhost:4173/#/m/fixture-viz');
+    await page
+      .getByRole('listitem')
+      .filter({ hasText: 'Dummy question two' })
+      .getByRole('button', { name: 'Copy' })
+      .click();
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+      'Dummy question two, slightly longer, for the card fixture?',
+    );
+    await page.getByRole('button', { name: 'Copy all' }).click();
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+      [
+        'Dummy question one for the card fixture?',
+        'Dummy question two, slightly longer, for the card fixture?',
+        'Dummy question three for the card fixture?',
+      ].join('\n'),
+    );
+    await context.close();
+  });
+});
+
 test.describe('fixture-shell specifics', () => {
   test('deep link params restore identical configuration', async ({
     page,

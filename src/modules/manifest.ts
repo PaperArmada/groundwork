@@ -20,6 +20,13 @@ export const modules: ModuleDef[] = [
     hidden: true,
   },
   {
+    id: 'fixture-viz',
+    title: 'Fixture: viz',
+    blurb: 'Streaming histogram with percentile markers, plus the card.',
+    load: () => import('./fixture-viz/index.tsx'),
+    hidden: true,
+  },
+  {
     id: 'fixture-shell',
     title: 'Fixture: shell',
     blurb: 'Theme, deep-link round trip, and reduced-motion checks.',
