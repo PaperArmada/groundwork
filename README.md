@@ -4,7 +4,7 @@ Interactive lessons teaching non-engineers the physics of software — what
 things cost, where state lives, how systems break — so they can direct AI
 coding agents effectively.
 
-**Status:** pre-build. The constitution is [DESIGN.md](DESIGN.md); the
+**Status:** substrate 000/002/003 and module 101 built — the first lesson is live. Spec 001 (SimLoop) remains before module 102. The constitution is [DESIGN.md](DESIGN.md); the
 agent's operating manual is [CLAUDE.md](CLAUDE.md); build contracts live in
 [specs/](specs/).
 

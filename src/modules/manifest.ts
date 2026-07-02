@@ -6,6 +6,12 @@ import type { ModuleDef } from '../core/moduleDef.ts';
 
 export const modules: ModuleDef[] = [
   {
+    id: 'why-is-it-slow',
+    title: 'Why is it slow?',
+    blurb: 'A tiny loop, a six-second page. Learn to count trips first.',
+    load: () => import('./why-is-it-slow/index.tsx'),
+  },
+  {
     id: 'fixture-transport',
     title: 'Fixture: transport',
     blurb: 'FramePlayer + TransportBar proving play/pause/step/seek/speed.',

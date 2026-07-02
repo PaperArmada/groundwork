@@ -122,6 +122,89 @@ test.describe('fixture-transport specifics', () => {
   });
 });
 
+test.describe('why-is-it-slow specifics', () => {
+  async function commitPredictions(page: Page) {
+    await page.getByRole('radio', { name: 'years', exact: true }).check();
+    await page
+      .locator('section', { hasText: 'one round trip across the internet' })
+      .getByRole('button', { name: 'Lock in my guess' })
+      .click();
+    await page
+      .getByRole('radio', { name: 'A by a lot (10× or more)' })
+      .check();
+    await page
+      .locator('section', { hasText: 'Which loads first?' })
+      .getByRole('button', { name: 'Lock in my guess' })
+      .click();
+  }
+
+  test('appears in the catalog and predictions gate both scenes', async ({
+    page,
+  }) => {
+    await page.goto('/#/');
+    await page.getByRole('link', { name: /Why is it slow\?/ }).click();
+    // scene 1 (ladder) and scene 2 (race) are absent before their commits
+    await expect(page.getByText('Read something from the SSD')).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Play' })).toHaveCount(0);
+    await commitPredictions(page);
+    await expect(page.getByText('Read something from the SSD')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Play' })).toBeVisible();
+    // both predictions recorded in the shell chip
+    await expect(page.getByText('2 predictions ·')).toBeVisible();
+  });
+
+  test('the race runs: plan A dwarfs plan B, histogram appears', async ({
+    page,
+  }) => {
+    await page.goto('/#/m/why-is-it-slow');
+    await commitPredictions(page);
+    await expect(page.getByText('~3 s — people notice')).toBeVisible();
+    await page
+      .getByRole('group', { name: 'Playback controls' })
+      .getByRole('combobox')
+      .selectOption('4');
+    await page.getByRole('button', { name: 'Play' }).click();
+    await expect(page.getByText(/Plan B:.*finished in/)).toBeVisible({
+      timeout: 15_000,
+    });
+    const planA = await page.getByText(/Plan A:.*finished in/).textContent();
+    const planB = await page.getByText(/Plan B:.*finished in/).textContent();
+    expect(planA).toMatch(/finished in \d+ ms/); // well under a second
+    expect(planB).toMatch(/finished in \d+(\.\d+)? s/); // seconds territory
+    await expect(page.locator('svg text', { hasText: 'p50' })).toBeVisible();
+  });
+
+  test('humanized toggle relabels the same run at exact ratio', async ({
+    page,
+  }) => {
+    await page.goto('/#/m/why-is-it-slow');
+    await commitPredictions(page);
+    await page
+      .getByRole('checkbox', { name: /humanized time/ })
+      .check();
+    await expect(
+      page.getByText(/1,000,000 in-memory operations \(12 days\)/),
+    ).toBeVisible();
+    await expect(page.getByText(/Plan B: 51 trips \(.*years\)/)).toBeVisible();
+  });
+
+  test('the same seed replays the identical race in a fresh tab', async ({
+    page,
+  }) => {
+    await page.goto('/#/m/why-is-it-slow?seed=7');
+    await commitPredictions(page);
+    const breakdown = await page
+      .getByText(/Plan B: 51 trips/)
+      .textContent();
+    await page.goto('/#/m/why-is-it-slow?seed=7');
+    await page.reload();
+    await commitPredictions(page);
+    await expect(page.getByText(/Plan B: 51 trips/)).toHaveText(
+      breakdown ?? '',
+    );
+  });
+});
+
 test.describe('fixture-predict specifics', () => {
   test('reveal content is absent from the DOM until commit', async ({
     page,

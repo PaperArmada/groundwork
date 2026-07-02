@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | **Type** | Module |
-| **Status** | Ready to build |
+| **Status** | Built |
 | **Depends on** | 000 (shell, transport, deep links), 002 (Predict + ledger), 003 (Histogram, agent-questions card) |
 | **Charter rules in play** | P1–P7, §4 all corollaries |
 

@@ -1,0 +1,180 @@
+/* Ladder */
+
+.ladderFigure {
+  margin: var(--space-4) 0;
+}
+
+.ladder {
+  width: 100%;
+  max-width: 34rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.rungBar {
+  fill: var(--color-accent);
+}
+
+.rungLabel {
+  fill: var(--color-text);
+  font-size: 11px;
+}
+
+.rungValue {
+  fill: var(--color-warn);
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.ladderCaption {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 34rem;
+  margin-top: var(--space-2);
+}
+
+/* Race */
+
+.race {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+.planCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-3);
+}
+
+.planCard {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  background: var(--color-surface);
+}
+
+.planCard h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-base);
+}
+
+.planCode {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--color-surface-raised);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2);
+  color: var(--color-text);
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--space-3);
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.controls input[type='range'] {
+  accent-color: var(--color-accent);
+}
+
+.controls select {
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  max-width: 14rem;
+}
+
+.labelToggle {
+  flex-direction: row !important;
+  align-items: center;
+}
+
+.labelToggle input {
+  accent-color: var(--color-accent);
+}
+
+.timeline {
+  width: 100%;
+  max-width: 36rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.laneLabel {
+  fill: var(--color-text);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.segNetwork {
+  fill: var(--color-warn);
+}
+
+.segMemory {
+  fill: var(--color-accent);
+}
+
+.band {
+  stroke: var(--color-text-muted);
+  stroke-dasharray: 4 3;
+}
+
+.bandLabel {
+  fill: var(--color-text-muted);
+  font-size: 9px;
+}
+
+.playhead {
+  stroke: var(--color-focus);
+  stroke-width: 1.5;
+}
+
+.counters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.counter {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.breakdown {
+  border-left: 3px solid var(--color-border);
+  padding-left: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.breakdown p {
+  margin: var(--space-1) 0;
+}
+
+.histFigure {
+  margin: 0;
+}
+
+.histFigure figcaption {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+  max-width: 34rem;
+}

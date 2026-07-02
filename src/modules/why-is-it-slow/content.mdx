@@ -1,0 +1,95 @@
+import { AgentQuestions } from '../../core/AgentQuestions.tsx';
+import { Predict } from '../../core/Predict.tsx';
+import { Ladder } from './Ladder.tsx';
+import { Race } from './Race.tsx';
+
+> You asked your agent for a page showing your 50 contacts, each with their
+> latest message. It built it. It works. It also takes six seconds to load,
+> and you can feel every one of them.
+>
+> The code looks tiny — a loop, a few lines. Your laptop plays 4K video
+> without breaking a sweat. How is a list of fifty names *slow*?
+
+Here's a way to feel the answer instead of memorizing it. Computers do
+different kinds of work at wildly different prices, and the prices are hard
+to picture at real speed. So stretch time: pretend one processor operation
+takes **one second** — a snap of your fingers. On that clock, how expensive
+is everything else?
+
+<Predict
+  id="why-is-it-slow.ladder-roundtrip"
+  kind="choice"
+  prompt="If one processor operation took 1 second, how long would one round trip across the internet take?"
+  options={['about a minute', 'hours', 'days', 'months', 'years']}
+  actual="years"
+  judge={(g, a) => g === a}
+>
+
+<Ladder />
+
+That last rung is the one to sit with. A **round trip** — your request
+travels to a machine somewhere else, and the answer travels back — costs
+*years* on a clock where ordinary work costs seconds. Nothing else on the
+ladder is even in the same neighborhood.
+
+</Predict>
+
+So the question "why is it slow?" almost never means "is the computer doing
+a lot of work?" It means: **how many trips is it making?**
+
+Back to your contacts page. There are two honest ways an agent might build
+it. Plan A makes one trip, brings everything home, and does the rest in
+memory. Plan B makes one trip for the list — then goes back across the
+internet once *per contact*, because that's the most natural-looking loop in
+the world to write.
+
+<Predict
+  id="why-is-it-slow.race-winner"
+  kind="choice"
+  prompt="Plan A does a million operations in memory. Plan B makes 51 small network calls. Which loads first?"
+  options={['A by a lot (10× or more)', 'roughly even', 'B by a lot (10× or more)']}
+  actual="A by a lot (10× or more)"
+  judge={(g, a) => g === a}
+>
+
+Run it and watch. Both plans execute for real, on the same price list as the
+ladder — nothing here is animated to a script.
+
+<Race />
+
+Try the two twists. Drag Plan A's in-memory work up to ten million
+operations and watch its bar barely move — work in memory is nearly free at
+this scale. Then flip on humanized time and reread the same race: a million
+operations cost about *12 days*, and every single little network call costs
+about *3 years*.
+
+One more word, now that you've watched the calls arrive: no two of them
+took the same time. That spread — the waiting time of each individual call,
+some quick, some slow — is called **latency**, and its slow tail is why
+"usually fast" pages still feel bad.
+
+And the shape you just watched lose the race has a name too: **the N+1
+pattern** — one call for the list, then one more call per item, N+1 trips in
+all. It's one of the most common things agents build by accident, because
+the loop reads so naturally. Now you can see it: the number of trips grows
+with your data.
+
+</Predict>
+
+## When this doesn't matter
+
+Honesty about the other direction: at 50 contacts, even Plan B is
+*survivable* — sluggish, not broken. A small app with a handful of users
+does not need caching layers or clever infrastructure; it needs the right
+number of trips. And yes, calls can be made in parallel instead of one after
+another — that helps, has limits of its own, and gets its own lesson later.
+The question to carry out of this one is not "is this architecture fancy
+enough?" but "how many trips, and does that number grow?"
+
+<AgentQuestions
+  questions={[
+    'How many separate network or database calls happen for one page load or click? Does that number grow with my data?',
+    'Which parts of this run in memory, and which cross the network or touch a disk?',
+    'What happens to load time when this list grows from 50 items to 5,000?',
+  ]}
+/>
