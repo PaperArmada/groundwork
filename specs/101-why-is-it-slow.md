@@ -61,7 +61,7 @@ might propose, executed side by side on a shared timeline:
 | Variable | Range | Default |
 |---|---|---|
 | Contacts (n) | 1–5,000, log slider | 50 |
-| Network latency preset | fast wifi 20 ms · typical 100 ms · weak mobile 400 ms | typical 100 ms |
+| Connection speed | fast wifi 20 ms · typical 100 ms · weak mobile 400 ms | typical 100 ms |
 | Plan A in-memory work | 10k–10M total operations, log slider | 1M |
 | Time labels | real ms ↔ humanized | real |
 
@@ -104,7 +104,8 @@ parallel ("helps, has its own limits, later module").
 | the N+1 pattern | after the race — "what you just watched has a name; it's one of the most common things agents build by accident" |
 
 No other jargon appears. "Network call" and "in memory" are treated as plain
-speech.
+speech. The connection-speed control (§4) is deliberately *not* labeled
+"latency" — that term is unearned while the control is first visible.
 
 ## 6. Agent-questions card (P5)
 
