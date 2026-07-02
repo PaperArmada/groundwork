@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | **Type** | Substrate |
-| **Status** | Ready to build |
+| **Status** | Built |
 | **Depends on** | — (root spec) |
 | **Charter rules in play** | §7 non-goals, §8 all technical commitments, P3/P4/P5/P6 (contracts defined here serve them) |
 

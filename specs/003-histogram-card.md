@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | **Type** | Substrate |
-| **Status** | Draft |
+| **Status** | Ready to build |
 | **Depends on** | 000 (S2.6, S2.7, S2.8) |
 | **Charter rules in play** | P4, P5, §8 |
 
@@ -79,4 +79,4 @@ Export/download of charts.
 
 1. **Auto-bin rule** — `sqrt(n)` clamped [8, 40]: simple, predictable,
    good enough for teaching visuals; fancier rules (Freedman–Diaconis) add
-   nothing a learner would notice. *Awaiting sign-off.*
+   nothing a learner would notice. *Accepted as-is (owner-delegated sign-off via goal directive, 2026-07-02).*

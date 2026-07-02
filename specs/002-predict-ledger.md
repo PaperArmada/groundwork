@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | **Type** | Substrate |
-| **Status** | Draft |
+| **Status** | Ready to build |
 | **Depends on** | 000 (S2.4 ledger schema & policy) |
 | **Charter rules in play** | P3, P6, §8 |
 
@@ -89,4 +89,5 @@ Server sync of any kind (charter-forbidden).
 ## 11. Open questions
 
 1. **Ledger reset placement** — fixture-only now; a small settings surface
-   becomes its own tiny spec when the shell grows one. *Awaiting sign-off.*
+   becomes its own tiny spec when the shell grows one. *Accepted as-is
+   (owner-delegated sign-off via goal directive, 2026-07-02).*
